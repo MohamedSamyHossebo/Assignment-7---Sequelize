@@ -12,7 +12,6 @@ const userModel = sequelize.define(
     name: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: checkNameLength
     },
     email: {
         type: DataTypes.STRING,
