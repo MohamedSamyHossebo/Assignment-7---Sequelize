@@ -1,4 +1,5 @@
 import { connectDB, syncTables } from './DB/connection.js'
+import './DB/models/index.js'; // Import models to register relationships
 // import { AuthRoutes, blogRouter, userRouter } from './modules/index.js'
 
 
