@@ -8,7 +8,6 @@ const userModel = sequelize.define(
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: false
     },
     name: {
         type: DataTypes.STRING,
@@ -18,6 +17,7 @@ const userModel = sequelize.define(
     email: {
         type: DataTypes.STRING,
         unique: true,
+        allowNull: false,
         validate: {
             isEmail: true
         }
@@ -35,7 +35,11 @@ const userModel = sequelize.define(
 
 }, {
     timestamps: true,
-    paranoid: true,
+    hooks: {
+        beforeCreate: (user) => {
+            checkNameLength(user.name);
+        }
+    }
 }
 )
 

@@ -16,20 +16,11 @@ const commentsModel = sequelize.define(
     userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-            model: "Users",
-            key: "id"
-        }
     },
     postId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-            model: "Posts",
-            key: "id"
-        }
     }
-
 
 }, {
     timestamps: true,

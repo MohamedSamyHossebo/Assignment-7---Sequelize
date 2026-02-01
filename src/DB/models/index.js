@@ -4,7 +4,8 @@ import postsModel from "./posts/posts.model.js";
 
 userModel.hasMany(postsModel, {
     foreignKey: "userId",
-    as: "posts"
+    as: "posts",
+    onDelete:"CASCADE"
 });
 
 postsModel.belongsTo(userModel, {
@@ -19,12 +20,14 @@ userModel.hasMany(commentsModel, {
 
 commentsModel.belongsTo(userModel, {
     foreignKey: "userId",
-    as: "user"
+    as: "user",
+    onDelete:"CASCADE"
 });
 
 postsModel.hasMany(commentsModel, {
     foreignKey: "postId",
-    as: "comments"
+    as: "comments",
+    onDelete:"CASCADE"
 });
 
 commentsModel.belongsTo(postsModel, {
