@@ -46,7 +46,7 @@ export const getUserByEmail = async (req, res) => {
 export const getUserById = async (req, res) => {
     try {
         const { id } = req.params;
-        const user = await userModel.findOne({ where: { id },paranoid:false });
+        const user = await userModel.findByPk(id,{paranoid:false });
         if (!user) {
             return res.status(404).json({ message: "User not found" })
         }
