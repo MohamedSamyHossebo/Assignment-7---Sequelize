@@ -27,27 +27,27 @@ export const getAllUsers = async (req, res) => {
         return res.status(200).json({ message: "Users fetched successfully", users })
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ message: "Internal server error" })
+        return res.status(500).json({ message: error.message })
     }
 }
-export const getUserById = async (req, res) => {
+export const getUserByEmail = async (req, res) => {
     try {
-        const { id } = req.params;
-        const user = await userModel.findByPk(id, { paranoid: false });
+        const { email } = req.query;
+        const user = await userModel.findOne({ where: { email } });
         if (!user) {
             return res.status(404).json({ message: "User not found" })
         }
         return res.status(200).json({ message: "User fetched successfully", user })
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ message: "Internal server error" })
+        return res.status(500).json({ message: error.message })
     }
 }
 export const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
         const { name, email, password, role } = req.body;
-        if(!name && !email && !password && !role){
+        if (!name && !email && !password && !role) {
             return res.status(400).json({ message: "Please provide at least one field" })
         }
         if (!id) {
