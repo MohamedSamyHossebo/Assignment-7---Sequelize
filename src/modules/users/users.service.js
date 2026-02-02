@@ -1,16 +1,21 @@
 import { userModel } from "../../DB/models/index.js";
 
-export const createUser = async (req, res) => {
+export const createOrUpdateUser = async (req, res) => {
     try {
         const { name, email, password } = req.body;
         if (!name || !email, !password) {
             return res.status(400).json({ message: "Please provide name, email and password" })
         }
-        if (await userModel.findOne({ where: { email } })) {
+        const isUser = await userModel.findOne({ where: { email } });
+        if (isUser) {
             return res.status(400).json({ message: "User already exists" })
         }
-        const user = await userModel.create({ name, email, password });
-        return res.status(201).json({ message: "User created successfully", user })
+        if (!isUser) {
+            const user = await userModel.create({ name, email, password });
+            return res.status(201).json({ message: "User created successfully", user })
+        }
+        const user = await userModel.update({ name, email, password }, { where: { email } });
+        return res.status(201).json({ message: "User updated successfully", user })
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Internal server error" })
