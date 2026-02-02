@@ -1,1 +1,1 @@
-// export { default as postsRoutes } from "./posts.controller.js";
+export { default as postsRouter } from "./posts.controller.js";
