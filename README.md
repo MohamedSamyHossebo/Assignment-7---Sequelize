@@ -64,6 +64,14 @@ Assignment-7/
 
 ## 🔌 API Endpoints
 
+### Users
+
+- `GET /users` - Get all users
+- `GET /users/by-email?email=<email>` - Get user by email (query parameter)
+- `GET /users/:id` - Get user by ID
+- `PUT /users/:id` - Update user by ID
+- `PUT /users/signup` - Create or update user (signup)
+
 ### Posts
 
 - `POST /posts` - Create a new post
