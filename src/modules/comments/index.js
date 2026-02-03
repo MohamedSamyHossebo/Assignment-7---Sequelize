@@ -1,1 +1,1 @@
-// export { default as commentsRoutes } from "./comments.controller.js";
+export { default as commentsRouter } from "./comments.controller.js";
