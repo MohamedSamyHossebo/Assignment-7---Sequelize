@@ -98,7 +98,10 @@ export const searchCommentsByWord = async (req, res) => {
             }
         })
         if (!comments || comments.length === 0) return res.status(404).json({ message: "No comments found" })
-        return res.status(200).json(comments)
+        return res.status(200).json({
+            count: comments.length,
+            comments
+        })
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Internal server error" });
@@ -115,6 +118,22 @@ export const findOrCreateComment = async (req, res) => {
         })
         if (created) return res.status(201).json({ message: "Comment created successfully", comment })
         return res.status(200).json({ message: "Comment already exists", comment })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+}
+export const updateComment = async (req, res) => {
+    try {
+        const { commentId } = req.params;
+        const { content, userId, postId } = req.body;
+        if (!commentId) return res.status(400).json({ message: "Please provide commentId" })
+        if (isNaN(Number(commentId))) return res.status(400).json({ message: "Please provide valid commentId as Number" })
+        const comment = await commentsModel.findByPk(commentId);
+        if (!comment) return res.status(404).json({ message: "Comment not found" })
+        if (comment.userId !== userId) return res.status(401).json({ message: "Unauthorized" })
+        const updatedComment = await comment.update({ content, userId, postId })
+        return res.status(200).json({ message: "Comment updated successfully", updatedComment })
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Internal server error" });

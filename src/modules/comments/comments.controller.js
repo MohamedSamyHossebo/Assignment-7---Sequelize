@@ -7,4 +7,5 @@ router.post("/find-or-create", commentService.findOrCreateComment);
 router.get("/newest/:postId", commentService.getNewestThreeComments);
 router.get("/search/", commentService.searchCommentsByWord);
 router.get("/:commentId", commentService.getCommentDetails);
+router.patch("/:commentId", commentService.updateComment);
 export default router;
